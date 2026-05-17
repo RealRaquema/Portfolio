@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect, useState } from 'react'
 
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
@@ -6,7 +7,32 @@ import { ArrowRight } from 'lucide-react'
 import './Hero.css'
 
 export default function Hero() {
+const roles = [
 
+  'Software Engineer',
+  'MERN Stack Developer',
+  'Machine Learning Engineer',
+  'Full Stack Developer',
+  'AI Developer',
+
+]
+
+const [currentRole, setCurrentRole] =
+  useState(0)
+
+useEffect(() => {
+
+  const interval = setInterval(() => {
+
+    setCurrentRole((prev) =>
+      (prev + 1) % roles.length
+    )
+
+  }, 2500)
+
+  return () => clearInterval(interval)
+
+}, [])
   return (
 
     <section
@@ -19,23 +45,45 @@ export default function Hero() {
         <div className="hero-content">
 
           <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-          >
+  initial={{ opacity: 0, y: 40 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.7 }}
+>
 
-            MERN Stack
-            <br />
+  <span className="hero-static-text">
+    Faisal Sajjad
+  </span>
 
-            <span className="gradient-text">
-              Developer &
-            </span>
+  <br />
 
-            <br />
+  <motion.span
+    key={roles[currentRole]}
+    className="gradient-text animated-role"
+    initial={{
+      opacity: 0,
+      y: 30,
+      filter: 'blur(10px)',
+    }}
+    animate={{
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+    }}
+    exit={{
+      opacity: 0,
+      y: -30,
+      filter: 'blur(10px)',
+    }}
+    transition={{
+      duration: 0.6,
+    }}
+  >
 
-            Software Engineer
+    {roles[currentRole]}
 
-          </motion.h1>
+  </motion.span>
+
+</motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
