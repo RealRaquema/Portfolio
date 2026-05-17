@@ -1,5 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, {
+  useEffect,
+  useState,
+} from 'react'
+
 import axios from 'axios'
+
+import { motion } from 'framer-motion'
 
 import {
   ExternalLink,
@@ -10,148 +16,243 @@ import '../styles/AllProjects.css'
 
 export default function AllProjects() {
 
-  const [projects, setProjects] = useState([])
+  const [projects, setProjects] =
+    useState([])
 
   useEffect(() => {
-
-    const fetchProjects = async () => {
-
-      try {
-
-        const res = await axios.get(
-          'http://localhost:5000/api/projects'
-        )
-
-        setProjects(res.data)
-
-      } catch (error) {
-
-        console.log(error)
-
-      }
-
-    }
 
     fetchProjects()
 
   }, [])
 
+  const fetchProjects = async () => {
+
+    try {
+
+      const res =
+        await axios.get(
+          'http://localhost:5000/api/projects'
+        )
+
+      setProjects(res.data)
+
+    } catch (error) {
+
+      console.log(error)
+
+    }
+
+  }
+
   return (
 
-    <div className="all-projects-page">
+    <section className="all-projects-page">
 
-      <div className="all-projects-header">
+      <div className="container">
 
-        <span className="all-projects-badge">
-          PORTFOLIO PROJECTS
-        </span>
+        {/* HEADER */}
 
-        <h1>
-          All Projects
-        </h1>
+        <motion.div
+          className="all-projects-header"
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.6,
+          }}
+          viewport={{
+            once: true,
+          }}
+        >
 
-        <p>
-          Explore full-stack applications, MERN stack systems,
-          AI projects, scalable backend architectures,
-          and modern UI experiences.
-        </p>
+          <span className="section-tag">
+            PORTFOLIO
+          </span>
 
-      </div>
+          <h1>
+            All Projects
+          </h1>
 
-      <div className="all-projects-grid">
+          <p>
 
-        {projects.map((project, index) => (
+            A collection of full-stack applications,
+            modern web experiences, backend systems,
+            and experimental projects built using
+            MERN stack technologies and modern tools.
 
-          <div
-            key={project._id}
-            className="all-project-card"
-          >
+          </p>
 
-            <div className="all-project-image-wrapper">
+        </motion.div>
 
-              <img
-                src={project.image}
-                alt={project.title}
-                className="all-project-image"
-              />
+        {/* PROJECTS */}
 
-            </div>
+        <div className="all-projects-grid">
 
-            <div className="all-project-content">
+          {projects.map((project, index) => (
 
-              <h3>
-                {project.title}
-              </h3>
+            <motion.div
 
-              <p>
-                {project.description}
-              </p>
+              key={project._id}
 
-              {project.tags?.length > 0 && (
+              className="project-card"
 
-                <div className="all-project-tags">
+              initial={{
+                opacity: 0,
+                y: 30,
+              }}
 
-                  {project.tags.map((tag, index) => (
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
 
-                    <span
-                      key={index}
-                      className="all-project-tag"
-                    >
-                      {tag}
-                    </span>
+              transition={{
+                delay: index * 0.05,
+              }}
 
-                  ))}
+              viewport={{
+                once: true,
+              }}
 
-                </div>
+              whileHover={{
+                y: -10,
+              }}
+            >
 
-              )}
+              {/* IMAGE */}
 
-              <div className="all-project-links">
+              <div className="project-image-wrapper">
 
-                {project.link && (
-
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="visit-project-btn"
-                  >
-
-                    <ExternalLink size={16} />
-
-                    Visit Website
-
-                  </a>
-
-                )}
-
-                {project.github && (
-
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="github-project-btn"
-                  >
-
-                    <Github size={16} />
-
-                    GitHub
-
-                  </a>
-
-                )}
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="project-image"
+                />
 
               </div>
 
-            </div>
+              {/* CONTENT */}
 
-          </div>
+              <div className="project-content">
 
-        ))}
+                <h2>
+                  {project.title}
+                </h2>
+
+                <p>
+                  {project.description}
+                </p>
+
+                {/* TECHNOLOGIES */}
+
+                {project.technologies &&
+                  project.technologies
+                    .length > 0 && (
+
+                  <div className="project-tech-list">
+
+                    {project.technologies.map(
+                      (tech, i) => (
+
+                        <span
+                          key={i}
+                          className="project-tech-pill"
+                        >
+
+                          {tech}
+
+                        </span>
+
+                      )
+                    )}
+
+                  </div>
+
+                )}
+
+                {/* BUTTONS */}
+
+                <div className="project-buttons">
+
+                  {/* LIVE SITE */}
+
+                  {project.liveLink && (
+
+                    <a
+
+                      href={
+                        project.liveLink.startsWith(
+                          'http'
+                        )
+                          ? project.liveLink
+                          : `https://${project.liveLink}`
+                      }
+
+                      target="_blank"
+
+                      rel="noreferrer"
+
+                      className="project-btn"
+                    >
+
+                      <ExternalLink
+                        size={18}
+                      />
+
+                      Go To Site
+
+                    </a>
+
+                  )}
+
+                  {/* GITHUB */}
+
+                  {project.github && (
+
+                    <a
+
+                      href={
+                        project.github.startsWith(
+                          'http'
+                        )
+                          ? project.github
+                          : `https://${project.github}`
+                      }
+
+                      target="_blank"
+
+                      rel="noreferrer"
+
+                      className="project-btn secondary-btn"
+                    >
+
+                      <Github
+                        size={18}
+                      />
+
+                      GitHub
+
+                    </a>
+
+                  )}
+
+                </div>
+
+              </div>
+
+            </motion.div>
+
+          ))}
+
+        </div>
 
       </div>
 
-    </div>
+    </section>
   )
 }

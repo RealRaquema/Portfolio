@@ -1,34 +1,24 @@
 import mongoose from 'mongoose'
 
-const projectSchema = new mongoose.Schema(
-  {
-    title: {
-      type: String,
-      required: true,
-    },
+const projectSchema = new mongoose.Schema({
 
-    description: {
-      type: String,
-      required: true,
-    },
+  title: String,
 
-    image: {
-      type: String,
-    },
+  description: String,
 
-    featured: {
-      type: Boolean,
-      default: false,
-    },
+  image: String,
 
-    order: {
-      type: Number,
-      default: 0,
-    },
-  },
-  {
-    timestamps: true,
-  }
+  featured: Boolean,
+
+  liveLink: String,
+
+  github: String,
+
+  technologies: [String],
+
+})
+
+export default mongoose.model(
+  'Project',
+  projectSchema
 )
-
-export default mongoose.model('Project', projectSchema)

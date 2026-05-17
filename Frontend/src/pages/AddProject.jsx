@@ -1,79 +1,171 @@
-import React, { useState } from 'react'
+// AddProject.jsx
+
+import React, {
+  useState,
+} from 'react'
+
 import axios from 'axios'
-import { techOptions } from '../utils/techIcons'
 
 import {
   ImagePlus,
-  Github,
   Globe,
-  Tag,
-  Sparkles,
+  Github,
 } from 'lucide-react'
 
-import '../styles/Admin.css'
+import '../styles/AddProject.css'
 
 export default function AddProject() {
 
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  const [featured, setFeatured] = useState(false)
+  /* STATES */
 
-  const [image, setImage] = useState(null)
+  const [title, setTitle] =
+    useState('')
 
-  const [github, setGithub] = useState('')
-  const [link, setLink] = useState('')
+  const [
+    description,
+    setDescription,
+  ] = useState('')
 
-  const [tags, setTags] = useState('')
+  const [featured, setFeatured] =
+    useState(false)
 
-  const handleSubmit = async (e) => {
+  const [image, setImage] =
+    useState(null)
+
+  const [liveLink, setLiveLink] =
+    useState('')
+
+  const [github, setGithub] =
+    useState('')
+
+  const [
+    technologies,
+    setTechnologies,
+  ] = useState([])
+
+  /* TECH OPTIONS */
+
+  const techOptions = [
+
+    'React',
+    'Node.js',
+    'MongoDB',
+    'Express',
+    'Next.js',
+    'Tailwind',
+    'JavaScript',
+    'Python',
+    'Java',
+    'Docker',
+    'PostgreSQL',
+    'MySQL',
+    'AWS',
+
+  ]
+
+  /* SUBMIT */
+
+  const handleSubmit = async (
+    e
+  ) => {
 
     e.preventDefault()
 
     try {
 
-      const formData = new FormData()
+      const formData =
+        new FormData()
 
-      formData.append('title', title)
-      formData.append('description', description)
-
-      formData.append('featured', featured)
-
-      formData.append('github', github)
-      formData.append('link', link)
-
-      formData.append('tags', tags)
-
-      if (image) {
-        formData.append('image', image)
-      }
-
-      await axios.post(
-        'http://localhost:5000/api/projects',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
+      formData.append(
+        'title',
+        title
       )
 
-      alert('Project Added Successfully')
+      formData.append(
+        'description',
+        description
+      )
+
+      formData.append(
+        'featured',
+        featured
+      )
+
+      formData.append(
+        'liveLink',
+        liveLink
+      )
+
+      formData.append(
+        'github',
+        github
+      )
+
+      formData.append(
+        'technologies',
+        JSON.stringify(
+          technologies
+        )
+      )
+
+      if (image) {
+
+        formData.append(
+          'image',
+          image
+        )
+
+      }
+
+      console.log(
+        technologies
+      )
+
+      const res =
+        await axios.post(
+
+          'http://localhost:5000/api/projects',
+
+          formData,
+
+          {
+
+            headers: {
+
+              'Content-Type':
+                'multipart/form-data',
+
+            },
+
+          }
+
+        )
+
+      console.log(
+        res.data
+      )
+
+      alert(
+        'Project Added Successfully'
+      )
+
+      /* RESET */
 
       setTitle('')
       setDescription('')
       setFeatured(false)
-
       setImage(null)
-
+      setLiveLink('')
       setGithub('')
-      setLink('')
-      setTags('')
+      setTechnologies([])
 
     } catch (error) {
 
       console.log(error)
 
-      alert('Something went wrong')
+      alert(
+        'Failed to add project'
+      )
 
     }
 
@@ -81,110 +173,220 @@ export default function AddProject() {
 
   return (
 
-    <div className="admin-page">
+    <section className="add-project-page">
 
-      <div className="admin-header">
+      <div className="container">
 
-        <span className="admin-badge">
-          PROJECT DASHBOARD
-        </span>
+        <div className="add-project-header">
 
-        <h1>Add New Project</h1>
+          <span className="section-tag">
+            ADMIN PANEL
+          </span>
 
-        <p>
-          Upload and manage your portfolio projects with
-          images, links, technologies, and featured homepage visibility.
-        </p>
+          <h1>
+            Add New Project
+          </h1>
 
-      </div>
+          <p>
 
-      <form
-        onSubmit={handleSubmit}
-        className="admin-form"
-      >
+            Upload and manage your
+            portfolio projects with
+            technologies, images,
+            GitHub repositories,
+            and live deployment links.
 
-        <div className="form-grid">
+          </p>
 
-          <div className="input-group">
+        </div>
 
-  <label className="input-label">
-    Technologies
-  </label>
+        <form
+          className="add-project-form"
+          onSubmit={handleSubmit}
+        >
 
-  <select
-    multiple
-    className="tech-select"
-    value={tags}
-    onChange={(e) => {
+          {/* TOP GRID */}
 
-      const values = Array.from(
-        e.target.selectedOptions,
-        option => option.value
-      )
+          <div className="form-grid">
 
-      setTags(values)
+            {/* TITLE */}
 
-    }}
-  >
+            <div className="form-group">
 
-    {techOptions.map((tech) => (
-
-      <option
-        key={tech.name}
-        value={tech.name}
-      >
-        {tech.name}
-      </option>
-
-    ))}
-
-  </select>
-
-</div>
-
-          <div className="input-group">
-
-            <label className="input-label">
-              GitHub Repository
-            </label>
-
-            <div className="input-icon-wrapper">
-
-              <Github size={18} />
+              <label>
+                Project Title
+              </label>
 
               <input
                 type="text"
-                placeholder="https://github.com/..."
-                value={github}
-                onChange={(e) => setGithub(e.target.value)}
+                placeholder="AI SaaS Dashboard"
+                value={title}
+                onChange={(e) =>
+                  setTitle(
+                    e.target.value
+                  )
+                }
+                required
               />
+
+            </div>
+
+            {/* GITHUB */}
+
+            <div className="form-group">
+
+              <label>
+                GitHub Repository
+              </label>
+
+              <div className="input-icon-wrapper">
+
+                <Github size={18} />
+
+                <input
+                  type="text"
+                  placeholder="https://github.com/..."
+                  value={github}
+                  onChange={(e) =>
+                    setGithub(
+                      e.target.value
+                    )
+                  }
+                />
+
+              </div>
 
             </div>
 
           </div>
 
-        </div>
+          {/* TECHNOLOGIES */}
 
-        <div className="input-group">
+          <div className="form-group">
 
-          <label className="input-label">
-            Project Description
-          </label>
+            <label>
+              Technologies
+            </label>
 
-          <textarea
-            placeholder="Describe your project, technologies, architecture, and purpose..."
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
+            <div className="tech-select-grid">
 
-        </div>
+              {techOptions.map(
+                (tech) => (
 
-        <div className="form-grid">
+                  <button
 
-          <div className="input-group">
+                    type="button"
 
-            <label className="input-label">
+                    key={tech}
+
+                    className={
+                      technologies.includes(
+                        tech
+                      )
+                        ? 'tech-pill active-tech'
+                        : 'tech-pill'
+                    }
+
+                    onClick={() => {
+
+                      if (
+                        technologies.includes(
+                          tech
+                        )
+                      ) {
+
+                        setTechnologies(
+
+                          technologies.filter(
+                            (
+                              item
+                            ) =>
+                              item !==
+                              tech
+                          )
+
+                        )
+
+                      } else {
+
+                        setTechnologies(
+                          [
+                            ...technologies,
+                            tech,
+                          ]
+                        )
+
+                      }
+
+                    }}
+                  >
+
+                    {tech}
+
+                  </button>
+
+                )
+              )}
+
+            </div>
+
+            {/* SELECTED */}
+
+            <div className="selected-tech-preview">
+
+              {technologies.map(
+                (tech) => (
+
+                  <span
+                    key={tech}
+                    className="selected-tech-pill"
+                  >
+
+                    {tech}
+
+                  </span>
+
+                )
+              )}
+
+            </div>
+
+          </div>
+
+          {/* DESCRIPTION */}
+
+          <div className="form-group">
+
+            <label>
+              Project Description
+            </label>
+
+            <textarea
+
+              placeholder="
+Describe your project,
+technologies,
+architecture,
+and purpose...
+              "
+
+              value={description}
+
+              onChange={(e) =>
+                setDescription(
+                  e.target.value
+                )
+              }
+
+              required
+            />
+
+          </div>
+
+          {/* LIVE URL */}
+
+          <div className="form-group">
+
+            <label>
               Live Project URL
             </label>
 
@@ -193,93 +395,100 @@ export default function AddProject() {
               <Globe size={18} />
 
               <input
+
                 type="text"
+
                 placeholder="https://yourproject.com"
-                value={link}
-                onChange={(e) => setLink(e.target.value)}
+
+                value={liveLink}
+
+                onChange={(e) =>
+                  setLiveLink(
+                    e.target.value
+                  )
+                }
               />
 
             </div>
 
           </div>
 
-          <div className="input-group">
+          {/* IMAGE */}
 
-            <label className="input-label">
-              Technologies / Tags
+          <div className="form-group">
+
+            <label>
+              Project Thumbnail
             </label>
 
-            <div className="input-icon-wrapper">
+            <div className="upload-box">
 
-              <Tag size={18} />
+              <ImagePlus
+                size={44}
+              />
+
+              <h3>
+                Upload Project Image
+              </h3>
+
+              <p>
+                Recommended size
+                1280×720
+              </p>
 
               <input
-                type="text"
-                placeholder="React, Node.js, MongoDB"
-                value={tags}
-                onChange={(e) => setTags(e.target.value)}
+                type="file"
+                onChange={(e) =>
+                  setImage(
+                    e.target.files[0]
+                  )
+                }
               />
 
             </div>
 
           </div>
 
-        </div>
+          {/* FEATURED */}
 
-        <div className="upload-section">
+          <div className="featured-wrapper">
 
-          <label className="input-label">
-            Project Thumbnail
-          </label>
+            <label className="featured-label">
 
-          <div className="upload-box">
+              <input
 
-            <ImagePlus size={34} />
+                type="checkbox"
 
-            <h3>Upload Project Image</h3>
+                checked={featured}
 
-            <p>
-              Recommended size 1280×720
-            </p>
+                onChange={(e) =>
+                  setFeatured(
+                    e.target.checked
+                  )
+                }
+              />
 
-            <input
-              type="file"
-              onChange={(e) => setImage(e.target.files[0])}
-            />
-
-          </div>
-
-        </div>
-
-        <div className="form-footer">
-
-          <div className="featured-toggle">
-
-            <Sparkles size={18} />
-
-            <span>
               Featured Homepage Project
-            </span>
 
-            <input
-              type="checkbox"
-              checked={featured}
-              onChange={(e) => setFeatured(e.target.checked)}
-            />
+            </label>
 
           </div>
+
+          {/* BUTTON */}
 
           <button
             type="submit"
-            className="admin-btn"
+            className="publish-btn"
           >
+
             Publish Project
+
           </button>
 
-        </div>
+        </form>
 
-      </form>
+      </div>
 
-    </div>
+    </section>
   )
 }
