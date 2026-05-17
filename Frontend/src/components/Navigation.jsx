@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
+
 import {
   Moon,
   Sun,
@@ -56,6 +57,9 @@ export default function Navigation() {
           >
             Home
           </Link>
+         <Link to="/#about">
+  About
+</Link>
 
           <Link
             to="/allProjects"
@@ -67,6 +71,9 @@ export default function Navigation() {
           >
             All Projects
           </Link>
+           <a href="contact">
+    Contact
+  </a>
 
           {/* <Link
             to="/addProject"

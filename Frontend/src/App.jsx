@@ -13,6 +13,7 @@ import AllProjects from './pages/AllProjects'
 import AddProject from './pages/AddProject'
 import ManageProjects from './pages/ManageProjects'
 import EditProject from './pages/EditProject'
+import Contact from './pages/Contact.jsx'
 
 function HomePage() {
 
@@ -58,7 +59,10 @@ export default function App() {
   path="/edit/:id"
   element={<EditProject />}
 />
-
+<Route
+  path="/contact"
+  element={<Contact />}
+/>
       </Routes>
 
     </>
