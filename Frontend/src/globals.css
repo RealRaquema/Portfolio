@@ -54,3 +54,56 @@ img {
   margin: auto;
 
 }
+.dark-mode {
+
+  background:
+    linear-gradient(
+      135deg,
+      #0f0f12,
+      #17171d
+    );
+
+  color: white;
+
+}
+
+.dark-mode .navbar,
+.dark-mode .theme-toggle,
+.dark-mode .work-card,
+.dark-mode .admin-form,
+.dark-mode .manage-card,
+.dark-mode .all-project-card {
+
+  background: rgba(25,25,30,0.72);
+
+  border-color: rgba(255,255,255,0.06);
+
+}
+
+.dark-mode p {
+
+  color: rgba(255,255,255,0.68);
+
+}
+
+.dark-mode a {
+
+  color: white;
+
+}
+:root {
+
+  --card-bg: rgba(255,255,255,0.72);
+
+}
+
+.dark-mode {
+
+  --card-bg:
+    linear-gradient(
+      135deg,
+      rgba(24,24,32,0.88),
+      rgba(18,18,24,0.92)
+    );
+
+}

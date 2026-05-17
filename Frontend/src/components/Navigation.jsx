@@ -1,4 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+
+import {
+  Moon,
+  Sun,
+} from 'lucide-react'
 
 import {
   Link,
@@ -11,63 +16,98 @@ export default function Navigation() {
 
   const location = useLocation()
 
+  const [darkMode, setDarkMode] = useState(false)
+
+  useEffect(() => {
+
+    if (darkMode) {
+      document.body.classList.add('dark-mode')
+    } else {
+      document.body.classList.remove('dark-mode')
+    }
+
+  }, [darkMode])
+
   return (
 
-    <nav className="navbar">
+    <div className="nav-wrapper">
 
-      <div className="nav-logo">
-        Faisal Sajjad
-      </div>
+      <nav className="navbar">
 
-      <div className="nav-links">
+       <div className="nav-logo">
 
-        <Link
-          to="/"
-          className={
-            location.pathname === '/'
-              ? 'active-link'
-              : ''
-          }
-        >
-          Home
-        </Link>
+  Faisal
 
-        <Link
-          to="/allProjects"
-          className={
-            location.pathname === '/allProjects'
-              ? 'active-link'
-              : ''
-          }
-        >
-          All Projects
-        </Link>
+  <span className="last-name">
+    Sajjad
+  </span>
 
-        <Link
-          to="/addProject"
-          className={
-            location.pathname === '/addProject'
-              ? 'active-link'
-              : ''
-          }
-        >
-          Add Project
-        </Link>
+</div>
 
-        <Link
-          to="/manageProjects"
-          className={
-            location.pathname === '/manageProjects'
-              ? 'active-link'
-              : ''
-          }
-        >
-          Manage
-        </Link>
+        <div className="nav-links">
 
-      </div>
+          <Link
+            to="/"
+            className={
+              location.pathname === '/'
+                ? 'active-link'
+                : ''
+            }
+          >
+            Home
+          </Link>
 
-    </nav>
+          <Link
+            to="/allProjects"
+            className={
+              location.pathname === '/allProjects'
+                ? 'active-link'
+                : ''
+            }
+          >
+            All Projects
+          </Link>
 
+          <Link
+            to="/addProject"
+            className={
+              location.pathname === '/addProject'
+                ? 'active-link'
+                : ''
+            }
+          >
+            Add Project
+          </Link>
+
+          <Link
+            to="/manageProjects"
+            className={
+              location.pathname === '/manageProjects'
+                ? 'active-link'
+                : ''
+            }
+          >
+            Manage
+          </Link>
+
+        </div>
+
+      </nav>
+
+      <button
+        className="theme-toggle"
+        onClick={() =>
+          setDarkMode(!darkMode)
+        }
+      >
+
+        {darkMode
+          ? <Sun size={18} />
+          : <Moon size={18} />
+        }
+
+      </button>
+
+    </div>
   )
 }

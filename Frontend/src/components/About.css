@@ -122,7 +122,7 @@
 .tech-section {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 50px;
 }
 
 .tech-header h3 {
@@ -134,116 +134,67 @@
   color: var(--text-secondary);
 }
 
-.tech-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 24px;
-}
+/* CATEGORY WRAPPER */
 
-.tech-card {
-  padding: 28px 20px;
-
-  border-radius: 24px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 18px;
-
-  transition: all 0.35s ease;
-}
-
-.tech-icon {
-  font-size: 42px;
-  color: var(--accent-primary);
-}
-
-.tech-card span {
-  font-weight: 600;
-  font-size: 15px;
-}
-
-.tech-card:hover {
-  transform: translateY(-10px);
-
-  box-shadow:
-    0 18px 40px rgba(255, 107, 53, 0.12);
-}
-
-/* RESPONSIVE */
-
-@media (max-width: 1024px) {
-  .about-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .about-header h2 {
-    font-size: 3rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .about-section {
-    padding: 100px 20px;
-  }
-
-  .about-header h2 {
-    font-size: 2.4rem;
-  }
-
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .tech-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .about-card {
-    padding: 30px;
-  }
-}
 .tech-category-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 48px;
+}
+
+.tech-category {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .tech-category h4 {
-  font-size: 1.4rem;
-  margin-bottom: 22px;
-
+  font-size: 1.3rem;
+  font-weight: 700;
   color: var(--text-primary);
+  padding-left: 6px;
 }
+
+/* GRID */
 
 .tech-grid {
   display: grid;
 
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns:
+    repeat(3, 1fr);
 
-  gap: 22px;
+  gap: 20px;
 }
 
+/* CARD */
+
 .tech-card {
-  padding: 26px 18px;
+  position: relative;
+
+  overflow: hidden;
+
+  min-height: 120px;
+
+  padding: 24px 18px;
 
   border-radius: 24px;
 
   display: flex;
+
   flex-direction: column;
 
   align-items: center;
+
   justify-content: center;
 
   gap: 16px;
 
-  min-height: 130px;
+background: var(--card-bg);
+  border: 1px solid rgba(0,0,0,0.06);
+
+  backdrop-filter: blur(20px);
 
   transition: all 0.35s ease;
-
-  position: relative;
-
-  overflow: hidden;
 }
 
 .tech-card::before {
@@ -270,29 +221,155 @@
 }
 
 .tech-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-8px);
 
-  border-color: rgba(255,107,53,0.25);
+  border-color: rgba(255,107,53,0.22);
 
   box-shadow:
     0 18px 40px rgba(255,107,53,0.12);
 }
+
+/* ICON */
 
 .tech-icon {
   font-size: 38px;
 
   color: var(--accent-primary);
 
-  transition: all 0.35s ease;
+  transition: transform 0.35s ease;
+
+  z-index: 2;
 }
 
 .tech-card:hover .tech-icon {
   transform: scale(1.15);
 }
 
+/* TEXT */
+
 .tech-card span {
   font-size: 14px;
+
   font-weight: 600;
 
   text-align: center;
+
+  z-index: 2;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1024px) {
+
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-header h2 {
+    font-size: 3rem;
+  }
+
+  .tech-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .about-section {
+    padding: 100px 20px;
+  }
+
+  .about-header h2 {
+    font-size: 2.4rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tech-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-card {
+    padding: 30px;
+  }
+
+}
+/* DARK MODE TECH STACK FIX */
+
+.dark-mode .tech-card {
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(24,24,32,0.88),
+      rgba(18,18,24,0.92)
+    );
+
+  border: 1px solid rgba(255,255,255,0.06);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.28);
+
+}
+
+.dark-mode .tech-card:hover {
+
+  border-color: rgba(255,107,53,0.25);
+
+  box-shadow:
+    0 18px 40px rgba(255,107,53,0.14);
+
+}
+
+.dark-mode .tech-card span {
+
+  color: rgba(255,255,255,0.88);
+
+}
+
+.dark-mode .tech-icon {
+
+  color: #ff6b35;
+
+}
+
+.dark-mode .tech-category h4 {
+
+  color: white;
+
+}
+
+.dark-mode .tech-header p,
+.dark-mode .about-intro,
+.dark-mode .about-card p,
+.dark-mode .stat-card p {
+
+  color: rgba(255,255,255,0.68);
+
+}
+
+.dark-mode .about-card,
+.dark-mode .stat-card {
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(24,24,32,0.88),
+      rgba(18,18,24,0.92)
+    );
+
+  border: 1px solid rgba(255,255,255,0.06);
+
+}
+
+.dark-mode .about-header h2,
+.dark-mode .about-card h3,
+.dark-mode .tech-header h3 {
+
+  color: white;
+
 }
