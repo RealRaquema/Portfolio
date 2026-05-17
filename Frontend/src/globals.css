@@ -1,0 +1,56 @@
+* {
+
+  margin: 0;
+
+  padding: 0;
+
+  box-sizing: border-box;
+
+}
+
+html {
+
+  scroll-behavior: smooth;
+
+}
+
+body {
+
+  font-family: Inter, sans-serif;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f8f6f4,
+      #ffffff
+    );
+
+  color: #111;
+
+  overflow-x: hidden;
+
+}
+
+a {
+
+  text-decoration: none;
+
+}
+
+img {
+
+  max-width: 100%;
+
+  display: block;
+
+}
+
+.container {
+
+  width: 100%;
+
+  max-width: 1300px;
+
+  margin: auto;
+
+}

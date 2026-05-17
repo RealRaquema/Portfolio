@@ -1,0 +1,225 @@
+.hero {
+
+  min-height: 100vh;
+
+  display: flex;
+
+  align-items: center;
+
+  padding: 120px 24px 60px;
+
+}
+
+.hero-container {
+
+  width: 100%;
+
+  max-width: 1300px;
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  align-items: center;
+
+  gap: 80px;
+
+}
+
+.hero-content h1 {
+
+  font-size: 6rem;
+
+  font-weight: 900;
+
+  line-height: 0.95;
+
+  letter-spacing: -5px;
+
+  margin-bottom: 28px;
+
+}
+
+.gradient-text {
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff6b35,
+      #ff3d77
+    );
+
+  -webkit-background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+
+}
+
+.hero-content p {
+
+  max-width: 600px;
+
+  line-height: 1.9;
+
+  color: rgba(0,0,0,0.64);
+
+  font-size: 17px;
+
+  margin-bottom: 40px;
+
+}
+
+.hero-buttons {
+
+  display: flex;
+
+  gap: 18px;
+
+}
+
+.primary-btn,
+.secondary-btn {
+
+  height: 58px;
+
+  padding: 0 28px;
+
+  border-radius: 18px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  font-weight: 700;
+
+  transition: all 0.3s ease;
+
+}
+
+.primary-btn {
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff6b35,
+      #ff3d77
+    );
+
+  color: white;
+
+}
+
+.secondary-btn {
+
+  border: 1px solid rgba(0,0,0,0.08);
+
+  color: #111;
+
+  background: rgba(255,255,255,0.7);
+
+}
+
+.primary-btn:hover,
+.secondary-btn:hover {
+
+  transform: translateY(-3px);
+
+}
+
+.hero-image-wrapper {
+
+  position: relative;
+
+  display: flex;
+
+  justify-content: center;
+
+}
+
+.hero-profile-image {
+
+  width: 430px;
+
+  height: 520px;
+
+  object-fit: cover;
+
+  border-radius: 40px;
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.14);
+
+}
+
+.hero-badge {
+
+  position: absolute;
+
+  bottom: 20px;
+
+  right: 0;
+
+  padding: 14px 24px;
+
+  border-radius: 18px;
+
+  background: rgba(255,255,255,0.82);
+
+  backdrop-filter: blur(18px);
+
+  font-weight: 700;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.08);
+
+}
+
+@media (max-width: 1000px) {
+
+  .hero-container {
+
+    grid-template-columns: 1fr;
+
+    text-align: center;
+
+  }
+
+  .hero-buttons {
+
+    justify-content: center;
+
+  }
+
+  .hero-content h1 {
+
+    font-size: 4.5rem;
+
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .hero-content h1 {
+
+    font-size: 3.2rem;
+
+  }
+
+  .hero-profile-image {
+
+    width: 100%;
+
+    max-width: 380px;
+
+    height: auto;
+
+  }
+
+}
