@@ -12,6 +12,7 @@ import Work from './components/Work'
 import AllProjects from './pages/AllProjects'
 import AddProject from './pages/AddProject'
 import ManageProjects from './pages/ManageProjects'
+import EditProject from './pages/EditProject'
 
 function HomePage() {
 
@@ -53,6 +54,10 @@ export default function App() {
           path="/manageProjects"
           element={<ManageProjects />}
         />
+        <Route
+  path="/edit/:id"
+  element={<EditProject />}
+/>
 
       </Routes>
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-
+import { useNavigate } from 'react-router-dom'
 import {
   Trash2,
   Pencil,
@@ -12,6 +12,7 @@ import {
 import '../styles/ManageProjects.css'
 
 export default function ManageProjects() {
+  const navigate = useNavigate()
 
   const [projects, setProjects] = useState([])
 
@@ -178,13 +179,16 @@ export default function ManageProjects() {
 
               <div className="manage-actions">
 
-                <button className="edit-btn">
-
-                  <Pencil size={16} />
-
-                  Edit
-
-                </button>
+                <button
+  className="edit-btn"
+  onClick={() =>
+    navigate(
+      `/edit/${project._id}`
+    )
+  }
+>
+  Edit
+</button>
 
                 <button
                   className="delete-btn"

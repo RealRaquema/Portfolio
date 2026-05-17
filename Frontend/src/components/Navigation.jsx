@@ -68,7 +68,7 @@ export default function Navigation() {
             All Projects
           </Link>
 
-          <Link
+          {/* <Link
             to="/addProject"
             className={
               location.pathname === '/addProject'
@@ -88,7 +88,7 @@ export default function Navigation() {
             }
           >
             Manage
-          </Link>
+          </Link> */}
 
         </div>
 
