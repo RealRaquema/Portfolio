@@ -1,30 +1,73 @@
-import React, { useEffect, useState } from 'react'
+// ManageProjects.jsx
+
+import React, {
+  useEffect,
+  useState,
+} from 'react'
+
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+
 import {
-  Trash2,
+  useNavigate,
+} from 'react-router-dom'
+
+import {
   Pencil,
+  Trash2,
   ExternalLink,
   Github,
-  Star,
 } from 'lucide-react'
 
-import '../styles/ManageProjects.css'
+import './ManageProjects.css'
 
 export default function ManageProjects() {
-  const navigate = useNavigate()
 
-  const [projects, setProjects] = useState([])
+  const [projects, setProjects] =
+    useState([])
+
+  const navigate =
+    useNavigate()
+
+  useEffect(() => {
+
+    fetchProjects()
+
+  }, [])
+
+  /* FETCH */
 
   const fetchProjects = async () => {
 
     try {
 
-      const res = await axios.get(
-       `${import.meta.env.VITE_API_URL}/api/projects`
-      )
+      const res =
+        await axios.get(
 
-      setProjects(res.data)
+          `${import.meta.env.VITE_API_URL}/api/projects`
+
+        )
+
+      /* SAFE ARRAY FIX */
+
+      const safeProjects =
+        res.data.map(
+          (project) => ({
+
+            ...project,
+
+            technologies:
+              Array.isArray(
+                project.technologies
+              )
+                ? project.technologies
+                : [],
+
+          })
+        )
+
+      setProjects(
+        safeProjects
+      )
 
     } catch (error) {
 
@@ -34,18 +77,26 @@ export default function ManageProjects() {
 
   }
 
-  useEffect(() => {
+  /* DELETE */
 
-    fetchProjects()
+  const handleDelete = async (
+    id
+  ) => {
 
-  }, [])
+    const confirmDelete =
+      window.confirm(
+        'Delete this project?'
+      )
 
-  const deleteProject = async (id) => {
+    if (!confirmDelete)
+      return
 
     try {
 
       await axios.delete(
-        `${import.meta.env.VITE_API_URL}/api/projects`
+
+        `${import.meta.env.VITE_API_URL}/api/projects/${id}`
+
       )
 
       fetchProjects()
@@ -60,157 +111,232 @@ export default function ManageProjects() {
 
   return (
 
-    <div className="manage-page">
+    <section className="manage-projects-page">
 
-      <div className="manage-header">
+      <div className="container">
 
-        <span className="manage-badge">
-          ADMIN DASHBOARD
-        </span>
+        {/* HEADER */}
 
-        <h1>
-          Manage Projects
-        </h1>
+        <div className="manage-header">
 
-        <p>
-          Edit, organize, feature, and remove projects
-          from your portfolio.
-        </p>
+          <span className="section-tag">
+            ADMIN PANEL
+          </span>
 
-      </div>
+          <h1>
+            Manage Projects
+          </h1>
 
-      <div className="manage-grid">
+          <p>
 
-        {projects.map((project, index) => (
+            Edit, organize,
+            and manage all
+            portfolio projects.
 
-          <div
-            key={project._id}
-            className="manage-card"
-          >
+          </p>
 
-            <div className="manage-image-wrapper">
+        </div>
 
-              <img
-                src={project.image}
-                alt={project.title}
-                className="manage-image"
-              />
+        {/* GRID */}
 
-              {project.featured && (
+        <div className="manage-grid">
 
-                <div className="featured-badge">
+          {projects.map(
+            (project) => (
 
-                  <Star size={14} />
+              <div
+                key={project._id}
+                className="manage-card"
+              >
 
-                  Featured
+                {/* IMAGE */}
+
+                <div className="manage-image-wrapper">
+
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="manage-image"
+                  />
 
                 </div>
 
-              )}
+                {/* CONTENT */}
 
-            </div>
+                <div className="manage-content">
 
-            <div className="manage-content">
+                  <div className="manage-top">
 
-              <h3>
-                {project.title}
-              </h3>
+                    <h2>
+                      {project.title}
+                    </h2>
 
-              <p>
-                {project.description}
-              </p>
+                    {project.featured && (
 
-              {project.tags?.length > 0 && (
+                      <span className="featured-badge">
 
-                <div className="manage-tags">
+                        Featured
 
-                  {project.tags.map((tag, index) => (
+                      </span>
 
-                    <span
-                      key={index}
-                      className="manage-tag"
+                    )}
+
+                  </div>
+
+                  <p>
+                    {project.description}
+                  </p>
+
+                  {/* TECH */}
+
+                  <div className="project-tech-list">
+
+                    {Array.isArray(
+                      project.technologies
+                    ) &&
+
+                      project.technologies.map(
+                        (
+                          tech,
+                          index
+                        ) => (
+
+                          <span
+                            key={index}
+                            className="project-tech-pill"
+                          >
+
+                            {tech}
+
+                          </span>
+
+                        )
+                      )
+                    }
+
+                  </div>
+
+                  {/* LINKS */}
+
+                  <div className="manage-links">
+
+                    {project.liveLink && (
+
+                      <a
+
+                        href={
+                          project.liveLink.startsWith(
+                            'http'
+                          )
+                            ? project.liveLink
+                            : `https://${project.liveLink}`
+                        }
+
+                        target="_blank"
+
+                        rel="noreferrer"
+
+                        className="manage-link-btn"
+                      >
+
+                        <ExternalLink
+                          size={16}
+                        />
+
+                        Live
+
+                      </a>
+
+                    )}
+
+                    {project.github && (
+
+                      <a
+
+                        href={
+                          project.github.startsWith(
+                            'http'
+                          )
+                            ? project.github
+                            : `https://${project.github}`
+                        }
+
+                        target="_blank"
+
+                        rel="noreferrer"
+
+                        className="manage-link-btn secondary-btn"
+                      >
+
+                        <Github
+                          size={16}
+                        />
+
+                        GitHub
+
+                      </a>
+
+                    )}
+
+                  </div>
+
+                  {/* ACTIONS */}
+
+                  <div className="manage-actions">
+
+                    <button
+
+                      className="edit-btn"
+
+                      onClick={() =>
+
+                        navigate(
+                          `/edit/${project._id}`
+                        )
+
+                      }
                     >
-                      {tag}
-                    </span>
 
-                  ))}
+                      <Pencil
+                        size={16}
+                      />
+
+                      Edit
+
+                    </button>
+
+                    <button
+
+                      className="delete-btn"
+
+                      onClick={() =>
+                        handleDelete(
+                          project._id
+                        )
+                      }
+                    >
+
+                      <Trash2
+                        size={16}
+                      />
+
+                      Delete
+
+                    </button>
+
+                  </div>
 
                 </div>
 
-              )}
-
-              <div className="manage-links">
-
-                {project.link && (
-
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="visit-btn"
-                  >
-
-                    <ExternalLink size={16} />
-
-                    Live
-
-                  </a>
-
-                )}
-
-                {project.github && (
-
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="github-btn"
-                  >
-
-                    <Github size={16} />
-
-                    GitHub
-
-                  </a>
-
-                )}
-
               </div>
 
-              <div className="manage-actions">
+            )
+          )}
 
-                <button
-  className="edit-btn"
-  onClick={() =>
-    navigate(
-      `/edit/${project._id}`
-    )
-  }
->
-  Edit
-</button>
-
-                <button
-                  className="delete-btn"
-                  onClick={() => deleteProject(project._id)}
-                >
-
-                  <Trash2 size={16} />
-
-                  Delete
-
-                </button>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        ))}
+        </div>
 
       </div>
 
-    </div>
+    </section>
   )
 }
