@@ -72,7 +72,7 @@ export default function EditProject() {
 
       const res =
         await axios.get(
-          'http://localhost:5000/api/projects'
+         `${import.meta.env.VITE_API_URL}/api/projects`
         )
 
       const project =
@@ -161,7 +161,7 @@ export default function EditProject() {
 
       await axios.put(
 
-        `http://localhost:5000/api/projects/${id}`,
+       `${import.meta.env.VITE_API_URL}/api/projects`,
 
         formData,
 

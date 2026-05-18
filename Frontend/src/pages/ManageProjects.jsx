@@ -21,7 +21,7 @@ export default function ManageProjects() {
     try {
 
       const res = await axios.get(
-        'http://localhost:5000/api/projects'
+       `${import.meta.env.VITE_API_URL}/api/projects`
       )
 
       setProjects(res.data)
@@ -45,7 +45,7 @@ export default function ManageProjects() {
     try {
 
       await axios.delete(
-        `http://localhost:5000/api/projects/${id}`
+        `${import.meta.env.VITE_API_URL}/api/projects`
       )
 
       fetchProjects()
