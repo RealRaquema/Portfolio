@@ -18,7 +18,7 @@ import {
   Github,
 } from 'lucide-react'
 
-import './ManageProjects.css'
+import '../styles/Contact.css'
 
 export default function ManageProjects() {
 
