@@ -161,7 +161,8 @@ export default function EditProject() {
 
       await axios.put(
 
-       `${import.meta.env.VITE_API_URL}/api/projects`,
+       `${import.meta.env.VITE_API_URL}/api/projects/${id}`,
+
 
         formData,
 

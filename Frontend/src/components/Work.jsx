@@ -17,8 +17,7 @@ export default function Work() {
       try {
 
         const res = await axios.get(
-          ${import.meta.env.VITE_API_URL}/api/projects
-        )
+          `${import.meta.env.VITE_API_URL}/api/projects`        )
 
         const featuredProjects = res.data.filter(
           (project) => project.featured
