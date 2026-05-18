@@ -57,9 +57,9 @@ export default function Navigation() {
           >
             Home
           </Link>
-         <Link to="/#about">
+         <a href="/#about">
   About
-</Link>
+</a>
 
           <Link
             to="/allProjects"
@@ -71,9 +71,9 @@ export default function Navigation() {
           >
             All Projects
           </Link>
-           <a href="contact">
-    Contact
-  </a>
+          <Link to="/contact">
+  Contact
+</Link>
 
           {/* <Link
             to="/addProject"
