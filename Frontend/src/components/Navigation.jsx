@@ -37,10 +37,10 @@ export default function Navigation() {
 
        <div className="nav-logo">
 
-  Faisal
+  Raquema
 
   <span className="last-name">
-    Sajjad
+    Drakhshan
   </span>
 
 </div>

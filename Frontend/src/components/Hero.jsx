@@ -51,7 +51,7 @@ useEffect(() => {
 >
 
   <span className="hero-static-text">
-    Faisal Sajjad
+    Raquema Drakhshan
   </span>
 
   <br />
