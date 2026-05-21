@@ -108,7 +108,7 @@ export default function Work() {
                 </p>
 
                 <a
-                  href={project.link || '#'}
+                  href={project.liveLink || '#'}
                   target="_blank"
                   rel="noreferrer"
                   className="project-btn"
